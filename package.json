@@ -3,9 +3,7 @@
   "name": "cefr-masterclass-landing",
   "version": "1.0.0",
   "description": "High-speed landing page for English CEFR preparation",
-  "scripts": {
-    "start": "serve ."
-  },
+  "private": true,
   "dependencies": {
     "serve": "^14.2.1"
   }
