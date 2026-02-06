@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# CEFR Masterclass Landing Page - Deploy Qo'llanmasi
 
-This contains everything you need to run your app locally.
+Ushbu loyiha Instagram reklamalari uchun maxsus optimallashtirilgan. Uni 2 daqiqa ichida deploy qilishingiz mumkin.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1qKmWTTFbsEyKbl4TCHzxAiZdgp8aJkPc
+## 1-variant: Vercel orqali (Tavsiya etiladi)
+1. Fayllarni GitHub-ga yuklang.
+2. [Vercel.com](https://vercel.com) saytiga kiring.
+3. GitHub repozitoriyangizni ulang.
+4. "Deploy" tugmasini bosing.
+   - **Muhim:** Loyiha build step talab qilmaydi, u to'g'ridan-to'g'ri `index.html` orqali ishlaydi.
 
-## Run Locally
+## 2-variant: Netlify orqali
+1. [Netlify.com](https://netlify.com) saytiga kiring.
+2. "Drop" maydoniga loyiha papkasini tashlang.
+3. Sayt tayyor!
 
-**Prerequisites:**  Node.js
+## Target uchun eslatma:
+- `index.html` faylidagi `YOUR_PIXEL_ID` o'rniga o'zingizning Facebook Pixel ID-ingizni qo'ying.
+- `constants.ts` faylidagi `TELEGRAM_CHANNEL_URL` to'g'riligini tekshiring.
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Nega bu sayt "qotmaydi"?
+- Sayt **Native ESM** texnologiyasida qurilgan.
+- React va Tailwind kutubxonalari global CDN (esm.sh) dan yuklanadi.
+- Hech qanday og'ir JavaScript framework build-lari yo'q.

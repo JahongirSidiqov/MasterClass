@@ -3,8 +3,15 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CEFR Masterclass - Bepul O'rganing</title>
+    
+    <!-- Meta Tags for Social Media (OpenGraph) -->
+    <meta property="og:title" content="CEFR ni qisqa vaqtda olish sirlari">
+    <meta property="og:description" content="Bepul darsda Speaking va Writing bo'yicha yangi texnikalarni o'rganing.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/tursunboev-dev/img-host/main/teacher-photo.jpg">
+    <meta property="og:type" content="website">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -12,6 +19,7 @@
         body {
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         @keyframes pulse-soft {
             0%, 100% { transform: scale(1); }
@@ -20,14 +28,14 @@
         .animate-pulse-soft {
             animation: pulse-soft 2s infinite ease-in-out;
         }
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* Mobile notch handling */
+        .h-screen {
+            height: 100vh; /* Fallback */
+            height: 100dvh;
         }
     </style>
     
-    <!-- Meta Pixel Code (Placeholder - Replace YOUR_PIXEL_ID) -->
+    <!-- Meta Pixel Code (TAYYOR) -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -37,7 +45,8 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_PIXEL_ID');
+    // BU YERGA O'ZINGIZNING PIXEL ID-INGIZNI QO'YING
+    fbq('init', 'YOUR_PIXEL_ID'); 
     fbq('track', 'PageView');
     </script>
     
@@ -51,7 +60,8 @@
     }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-900 overflow-x-hidden">
+<body class="bg-white text-gray-900 overflow-x-hidden">
     <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>
