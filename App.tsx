@@ -46,7 +46,7 @@ const App: React.FC = () => {
               className="w-full h-full object-cover object-center"
               loading="eager"
               onError={(e) => {
-                 (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800";
+                 (e.target as HTMLImageElement).src = "https://github.com/JahongirSidiqov/MasterClass/blob/main/utils/teacher.png";
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
