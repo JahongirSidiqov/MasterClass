@@ -29,7 +29,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({ className = "" }) => {
         ${className}
       `}
     >
-      TEZDA QO'SHILISH (BEPUL)
+      BEPUL QO'SHILISH
     </a>
   );
 };

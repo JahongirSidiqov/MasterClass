@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
       <div className="flex flex-col w-full max-w-md h-full px-5 py-4 justify-between">
         
-        {/* Sarlavha */}
+        {/* Header */}
         <header className="text-center mb-1">
           <h1 
             onClick={handleTitleClick}
@@ -35,14 +35,14 @@ const App: React.FC = () => {
           </h1>
         </header>
 
-        {/* Asosiy qism */}
+        {/* Main Content */}
         <main className="flex flex-col flex-grow items-center justify-center space-y-4 overflow-hidden">
           
-          {/* Rasm - To'rtburchak yumshoq burchakli (Siz yuborgan rasmga mos) */}
+          {/* Hero Image */}
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 flex-shrink-0">
             <img 
               src={TEACHER_IMAGE_URL} 
-              alt="Teacher" 
+              alt="CEFR Expert" 
               className="w-full h-full object-cover object-center"
               loading="eager"
               onError={(e) => {
@@ -52,7 +52,7 @@ const App: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
 
-          {/* Manfaatlar - Ixchamroq */}
+          {/* Benefits Section */}
           <section className="w-full bg-orange-50/70 rounded-2xl p-4 border border-orange-100/50">
             <div className="space-y-2">
               {BENEFITS.map((benefit) => (
@@ -65,13 +65,13 @@ const App: React.FC = () => {
             </div>
           </section>
 
-          {/* Asosiy Tugma */}
+          {/* Action Area */}
           <div className="w-full">
             <CTAButton className="!py-4 !text-base shadow-[0_8px_20px_rgba(249,115,22,0.4)]" />
             <div className="flex justify-center items-center mt-2 space-x-2">
               <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
               <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                Jonli efirga ulanish
+                Hozir darsga qo'shilishmoqda
               </p>
             </div>
           </div>

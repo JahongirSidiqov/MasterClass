@@ -2,10 +2,9 @@
 {
   "name": "cefr-masterclass-landing",
   "version": "1.0.0",
-  "description": "Instagram target uchun yuqori tezlikdagi landing page",
+  "description": "High-speed landing page for English CEFR preparation",
   "scripts": {
-    "start": "serve .",
-    "build": "echo 'No build step required for static ESM'"
+    "start": "serve ."
   },
   "dependencies": {
     "serve": "^14.2.1"
