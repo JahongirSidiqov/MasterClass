@@ -39,17 +39,28 @@ const App: React.FC = () => {
         <main className="flex flex-col flex-grow items-center justify-center space-y-4 overflow-hidden">
           
           {/* Hero Image */}
-          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 flex-shrink-0">
+          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 flex-shrink-0 bg-gray-50 group">
             <img 
               src={TEACHER_IMAGE_URL} 
               alt="CEFR Expert" 
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               loading="eager"
               onError={(e) => {
-                 (e.target as HTMLImageElement).src = "https://github.com/JahongirSidiqov/MasterClass/blob/main/utils/teacher.png";
+                 // GitHub'dagi 'raw' link formati (fallback):
+                 const target = e.target as HTMLImageElement;
+                 const rawUrl = "https://raw.githubusercontent.com/JahongirSidiqov/MasterClass/main/utils/teacher.png";
+                 if (target.src !== rawUrl) {
+                    target.src = rawUrl;
+                 }
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            
+            {/* Overlay Badge */}
+            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-2 rounded-xl flex items-center space-x-2 border border-white/50 shadow-lg">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+              <p className="text-[10px] font-bold text-gray-800 uppercase tracking-tight">Ekspert bilan darsda ko'rishamiz</p>
+            </div>
           </div>
 
           {/* Benefits Section */}
