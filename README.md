@@ -3,23 +3,21 @@
 
 Ushbu loyiha Instagram reklamalari uchun maxsus optimallashtirilgan. Uni 2 daqiqa ichida deploy qilishingiz mumkin.
 
-## 1-variant: Vercel orqali (Tavsiya etiladi)
-1. Fayllarni GitHub-ga yuklang.
-2. [Vercel.com](https://vercel.com) saytiga kiring.
-3. GitHub repozitoriyangizni ulang.
-4. "Deploy" tugmasini bosing.
-   - **Muhim:** Loyiha build step talab qilmaydi, u to'g'ridan-to'g'ri `index.html` orqali ishlaydi.
+## Vercel orqali deploy qilish (Qadamba-qadam):
 
-## 2-variant: Netlify orqali
-1. [Netlify.com](https://netlify.com) saytiga kiring.
-2. "Drop" maydoniga loyiha papkasini tashlang.
-3. Sayt tayyor!
+1. Fayllarni GitHub-ga yuklang.
+2. [Vercel.com](https://vercel.com) saytida **"Add New Project"** tugmasini bosing.
+3. GitHub repozitoriyangizni tanlang.
+4. **Project Settings** bo'limida quyidagilarni belgilang:
+   - **Framework Preset:** `Other` (Boshqa)
+   - **Root Directory:** `./`
+   - **Build Command:** Bo'sh qoldiring (yoki default turaversin)
+   - **Output Directory:** Bo'sh qoldiring (Loyiha ildiz papkasidan ishlaydi)
+5. **"Deploy"** tugmasini bosing.
+
+## Nega "Other" tanlanadi?
+Bu loyiha **Native ESM** texnologiyasida yozilgan. Bu degani, brauzerning o'zi kodni tushunadi va bizga og'ir `npm build` jarayonlari shart emas. Bu esa saytning "qotmasdan" va juda tez yuklanishini ta'minlaydi.
 
 ## Target uchun eslatma:
 - `index.html` faylidagi `YOUR_PIXEL_ID` o'rniga o'zingizning Facebook Pixel ID-ingizni qo'ying.
 - `constants.ts` faylidagi `TELEGRAM_CHANNEL_URL` to'g'riligini tekshiring.
-
-## Nega bu sayt "qotmaydi"?
-- Sayt **Native ESM** texnologiyasida qurilgan.
-- React va Tailwind kutubxonalari global CDN (esm.sh) dan yuklanadi.
-- Hech qanday og'ir JavaScript framework build-lari yo'q.
