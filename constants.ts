@@ -1,10 +1,10 @@
 
 /**
- * RASMNI O'ZGARTIRISH:
- * Rasm hozirda loyiha ildizidagi 'teacher.png' manzilidan olinmoqda.
- * GitHub-da loyiha ichiga 'teacher.png' nomli rasm faylini yuklang.
+ * RASM MANZILI:
+ * GitHub-dagi 'utils/teacher.png' faylining haqiqiy (RAW) manzili.
+ * Bu rasm har doim internet orqali yuklanishini ta'minlaydi.
  */
-export const TEACHER_IMAGE_URL = "/teacher.png"; 
+export const TEACHER_IMAGE_URL = "https://raw.githubusercontent.com/JahongirSidiqov/MasterClass/main/utils/teacher.png"; 
 
 export const TELEGRAM_CHANNEL_URL = "https://t.me/+6JLHoxyfUQNlNjAy";
 export const APP_TITLE = "CEFR imtihonini qisqa vaqtda topshirish sirlarini o'rganing";
