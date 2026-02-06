@@ -1,10 +1,10 @@
 
 /**
  * RASMNI O'ZGARTIRISH:
- * 1-usul: Pastdagi URL o'rniga internetdagi biron bir rasm linkini qo'ying.
- * 2-usul: Agar rasm loyiha ichida bo'lsa, "/rasm-nomi.jpg" shaklida yozing.
+ * Rasm hozirda 'assets/teacher.png' manzilidan olinmoqda.
+ * GitHub-da 'assets' papkasini ochib, ichiga 'teacher.png' rasmini yuklang.
  */
-export const TEACHER_IMAGE_URL = "/IMG_0701.png"; 
+export const TEACHER_IMAGE_URL = "/assets/teacher.png"; 
 
 export const TELEGRAM_CHANNEL_URL = "https://t.me/+6JLHoxyfUQNlNjAy";
 export const APP_TITLE = "CEFR imtihonini qisqa vaqtda topshirish sirlarini o'rganing";
