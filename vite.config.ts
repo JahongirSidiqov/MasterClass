@@ -10,6 +10,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser'
+    minify: 'esbuild' // Terser o'rniga esbuild ishlatamiz, u tezroq va qo'shimcha kutubxona talab qilmaydi
   }
 });
