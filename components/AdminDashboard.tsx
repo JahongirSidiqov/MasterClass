@@ -1,16 +1,33 @@
 
-import React from 'react';
-import { getStats } from '../utils/tracker';
+import React, { useState, useEffect } from 'react';
+import { getStatsFromBackend } from '../utils/tracker';
 
 interface AdminDashboardProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+interface DBStats {
+  total_clicks: number;
+  last_click: string | null;
+  today_clicks: number;
+}
 
-  const stats = getStats();
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
+  const [dbStats, setDbStats] = useState<DBStats | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setLoading(true);
+      getStatsFromBackend().then(data => {
+        if (data) setDbStats(data);
+        setLoading(false);
+      });
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -23,28 +40,49 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose 
         </button>
 
         <h3 className="text-2xl font-black text-gray-900 mb-6 flex items-center">
-          <i className="fa-solid fa-chart-line text-orange-500 mr-3"></i>
-          STATISTIKA (ADMIN)
+          <i className="fa-solid fa-database text-orange-500 mr-3"></i>
+          SQL DATABASE STATS
         </h3>
 
-        <div className="grid grid-cols-1 gap-4 mb-8">
-          <div className="bg-orange-50 p-6 rounded-2xl border border-orange-100">
-            <p className="text-sm text-orange-600 font-bold uppercase mb-1">Jami bosilganlar (Local)</p>
-            <p className="text-4xl font-black text-orange-700">{stats.totalClicks}</p>
+        {loading ? (
+          <div className="py-10 text-center text-gray-400">
+            <i className="fa-solid fa-circle-notch animate-spin text-3xl mb-2"></i>
+            <p className="text-xs font-bold uppercase">Yuklanmoqda...</p>
           </div>
-          
-          <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-            <p className="text-sm text-blue-600 font-bold uppercase mb-1">Oxirgi faollik</p>
-            <p className="text-gray-700 font-medium">
-              {stats.lastClick ? new Date(stats.lastClick).toLocaleString() : 'Ma\'lumot yo\'q'}
-            </p>
-          </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 mb-8">
+            <div className="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+              <p className="text-sm text-orange-600 font-bold uppercase mb-1">Jami kliklar (SQL)</p>
+              <p className="text-4xl font-black text-orange-700">{dbStats?.total_clicks || 0}</p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+               <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
+                  <p className="text-[10px] text-green-600 font-bold uppercase">Bugungi kliklar</p>
+                  <p className="text-xl font-black text-green-700">{dbStats?.today_clicks || 0}</p>
+               </div>
+               <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                  <p className="text-[10px] text-blue-600 font-bold uppercase">Backend status</p>
+                  <p className="text-sm font-black text-blue-700 uppercase">Online</p>
+               </div>
+            </div>
 
-        <div className="text-sm text-gray-500 space-y-3 bg-gray-50 p-4 rounded-xl">
-          <p className="font-semibold text-gray-700 underline">Professional tavsiya:</p>
-          <p>1. <b>Meta Pixel</b> orqali Instagram reklamalaringizdan necha kishi o'tganini aniq ko'ra olasiz.</p>
-          <p>2. Global hisoblash uchun <b>Supabase</b> yoki <b>Firebase</b> kabi bazalarni ulash lozim.</p>
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+              <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Oxirgi klik vaqti</p>
+              <p className="text-xs font-bold text-gray-700">
+                {dbStats?.last_click ? new Date(dbStats.last_click).toLocaleString('uz-UZ') : 'Hali klik yo\'q'}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div className="text-[10px] text-gray-400 space-y-2 bg-gray-50 p-4 rounded-xl border border-dashed border-gray-200">
+          <p className="font-bold text-gray-500">BACKEND TEXNOLOGIYASI:</p>
+          <div className="flex space-x-4">
+             <span className="flex items-center"><i className="fa-brands fa-python mr-1"></i> Python</span>
+             <span className="flex items-center"><i className="fa-solid fa-server mr-1"></i> Django</span>
+             <span className="flex items-center"><i className="fa-solid fa-database mr-1"></i> SQLite/PostgreSQL</span>
+          </div>
         </div>
 
         <button 

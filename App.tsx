@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { CTAButton } from './components/CTAButton';
 import { BenefitItem } from './components/BenefitItem';
 import { AdminDashboard } from './components/AdminDashboard';
-import { APP_TITLE, BENEFITS, TEACHER_IMAGE_URL } from './constants';
+import { APP_TITLE, BENEFITS, TEACHER_IMAGE_PATH } from './constants';
 
 const App: React.FC = () => {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [clickCount, setClickCount] = useState(0);
+  const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
 
   const handleTitleClick = () => {
     setClickCount(prev => prev + 1);
@@ -19,96 +20,72 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white flex flex-col items-center overflow-x-hidden">
-      {/* Admin Dashboard */}
+    <div className="min-h-screen w-full bg-slate-100 flex flex-col items-center justify-start overflow-hidden">
       <AdminDashboard isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
 
-      <div className="flex flex-col w-full max-w-md min-h-screen px-5 py-6 justify-between">
+      <div className="flex flex-col w-full max-w-md h-screen max-h-[850px] px-4 py-3 justify-between bg-white shadow-2xl">
         
-        {/* Header */}
-        <header className="text-center mb-4">
+        {/* Header - Super Compact */}
+        <header className="text-center">
           <h1 
             onClick={handleTitleClick}
-            className="text-xl md:text-2xl font-black text-gray-900 uppercase leading-tight select-none cursor-default tracking-tight"
+            className="text-lg md:text-xl font-black text-gray-900 uppercase leading-tight tracking-tighter select-none"
           >
             {APP_TITLE}
           </h1>
         </header>
 
-        {/* Main Content */}
-        <main className="flex flex-col flex-grow items-center justify-center space-y-6">
-          
-          {/* Hero Image Container */}
-          <div className="relative w-full aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white flex-shrink-0 bg-gray-100 ring-1 ring-gray-100">
+        {/* Hero Image - 1:1 Aspect Ratio */}
+        <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md border-2 border-slate-50 flex-shrink-0 my-1">
+          {imgStatus !== 'error' ? (
             <img 
-              src={TEACHER_IMAGE_URL} 
+              src={TEACHER_IMAGE_PATH} 
               alt="Teacher" 
-              className="w-full h-full object-cover object-top transition-all duration-700"
-              onLoad={(e) => (e.currentTarget.style.opacity = "1")}
-              style={{ opacity: 0 }}
-              onError={(e) => {
-                const target = e.currentTarget;
-                // Agar GitHub RAW link ham ishlamasa, mahalliy faylni tekshiradi
-                const fallbackUrl = "/teacher.png";
-                if (target.src !== fallbackUrl) {
-                  target.src = fallbackUrl;
-                } else {
-                  // Hech narsa ishlamasa, rangli placeholder
-                  target.style.display = 'none';
-                  target.parentElement!.classList.add('bg-orange-500');
-                }
-              }}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${imgStatus === 'loaded' ? 'opacity-100' : 'opacity-0'}`}
+              onError={() => setImgStatus('error')}
+              onLoad={() => setImgStatus('loaded')}
             />
-            
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-            
-            {/* Live Indicator Overlay */}
-            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur p-2.5 rounded-2xl flex items-center justify-between shadow-lg border border-white/50">
-               <div className="flex items-center space-x-2">
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-red-500 animate-ping"></span>
-                  <span className="text-[11px] font-black text-gray-800 uppercase tracking-tight">Live Masterclass</span>
-               </div>
-               <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-100">BEPUL</span>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-orange-500 text-white">
+               <i className="fa-solid fa-user-tie text-4xl opacity-50"></i>
             </div>
+          )}
+          
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+          
+          <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center space-x-1 shadow-sm">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-red-600 animate-pulse"></span>
+            <span className="text-[9px] font-black text-gray-800 uppercase tracking-tighter">Live Masterclass</span>
           </div>
+        </div>
 
-          {/* Benefits Section */}
-          <section className="w-full bg-orange-50/40 rounded-[2rem] p-5 border border-orange-100/60">
-            <div className="space-y-3.5">
-              {BENEFITS.map((benefit) => (
-                <BenefitItem 
-                  key={benefit.id} 
-                  text={benefit.text} 
-                  icon={benefit.icon} 
-                />
-              ))}
-            </div>
-          </section>
+        {/* Benefits - Vertical List */}
+        <section className="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-1.5">
+          {BENEFITS.map((benefit) => (
+            <BenefitItem 
+              key={benefit.id} 
+              text={benefit.text} 
+              icon={benefit.icon} 
+            />
+          ))}
+        </section>
 
-          {/* CTA Section */}
-          <div className="w-full pt-2">
-            <CTAButton className="!py-5 !text-lg !rounded-2xl shadow-[0_12px_30px_rgba(249,115,22,0.45)] hover:shadow-orange-500/60 transition-all active:translate-y-1" />
-            <div className="flex items-center justify-center space-x-2 mt-4 opacity-60">
-               <div className="flex -space-x-2">
-                  {[1,2,3].map(i => (
-                    <div key={i} className={`w-6 h-6 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-[8px] font-bold`}>
-                      <i className="fa-solid fa-user"></i>
-                    </div>
-                  ))}
-               </div>
-               <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                 +2,400 o'quvchi qo'shildi
-               </p>
-            </div>
+        {/* CTA & Trust - Tightened spacing */}
+        <div className="space-y-2">
+          <CTAButton className="!py-3.5 !text-base shadow-orange-500/40" />
+          
+          <div className="flex flex-col items-center">
+             <div className="flex items-center space-x-1.5 mb-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <p className="text-slate-500 text-[9px] font-bold uppercase tracking-tight">
+                  +2,481 kishi bugun ro'yxatdan o'tdi
+                </p>
+             </div>
+             <p className="text-[7px] text-slate-300 uppercase font-bold">
+               &copy; {new Date().getFullYear()} CEFR Expert PRO • SQL Backed
+             </p>
           </div>
-        </main>
-
-        {/* Footer */}
-        <footer className="pt-6 pb-2 text-center">
-          <p className="text-[9px] text-gray-400 font-bold tracking-widest uppercase">
-            &copy; {new Date().getFullYear()} CEFR Expert Online
-          </p>
-        </footer>
+        </div>
       </div>
     </div>
   );

@@ -1,28 +1,26 @@
 
-/**
- * RASM MANZILI:
- * GitHub-dagi 'utils/teacher.png' faylining haqiqiy (RAW) manzili.
- * Bu rasm har doim internet orqali yuklanishini ta'minlaydi.
- */
-export const TEACHER_IMAGE_URL = "https://github.com/JahongirSidiqov/MasterClass/blob/main/teacher.png"; 
-
 export const TELEGRAM_CHANNEL_URL = "https://t.me/+6JLHoxyfUQNlNjAy";
-export const APP_TITLE = "CEFR imtihonini qisqa vaqtda topshirish sirlarini o'rganing";
+export const APP_TITLE = "CEFR-ni 30 kunda topshirish sirlari";
+
+// Netlify funksiyasi uchun endpoint
+export const API_BASE_URL = "/api";
+
+export const TEACHER_IMAGE_PATH = "/teacher.jpg";
 
 export const BENEFITS = [
   {
     id: 1,
-    text: "CEFRga Speaking va Writing ga qisqa vaqtta tayyorlanishni o’rganasiz",
+    text: "Speaking/Writing-dan yuqori ball sirlari",
     icon: "1"
   },
   {
     id: 2,
-    text: "Listening va Reading da shu kungacha ko’rmagan texnikalarni o’rganasiz",
+    text: "Listening/Reading tezkor texnikalari",
     icon: "2"
   },
   {
     id: 3,
-    text: "CEFR ga umumiy qanday tayyorlanish kerakligini bilib olasiz",
+    text: "CEFR imtihoniga to'liq Roadmap",
     icon: "3"
   }
 ];
