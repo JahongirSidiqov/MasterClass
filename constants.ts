@@ -4,8 +4,8 @@ export const APP_TITLE = "Ingliz tilida CEFR ni qisqa vaqtda olish qadamlarini o
 // Netlify funksiyasi uchun endpoint
 export const API_BASE_URL = "/api";
 
-// ImgBB direct image link
-export const TEACHER_IMAGE_PATH = "https://i.ibb.co/2308Qk0R/teacher-Picsart-Ai-Image-Enhancer.png";
+// ImgBB direct image link (Updated to the latest version)
+export const TEACHER_IMAGE_PATH = "https://i.ibb.co/hxztv97C/teacher-Picsart-Ai-Image-Enhancer.webp";
 
 export const BENEFITS = [
   {
