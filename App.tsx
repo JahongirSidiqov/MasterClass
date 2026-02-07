@@ -7,85 +7,54 @@ import { APP_TITLE, BENEFITS, TEACHER_IMAGE_PATH } from './constants';
 
 const App: React.FC = () => {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
-  const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+  const [clicks, setClicks] = useState(0);
+  const [imgError, setImgError] = useState(false);
 
-  const handleTitleClick = () => {
-    setClickCount(prev => prev + 1);
-    if (clickCount + 1 >= 3) {
-      setIsAdminOpen(true);
-      setClickCount(0);
-    }
-    setTimeout(() => setClickCount(0), 2000);
+  const secretTrigger = () => {
+    setClicks(c => c + 1);
+    if (clicks > 2) { setIsAdminOpen(true); setClicks(0); }
+    setTimeout(() => setClicks(0), 1000);
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-100 flex flex-col items-center justify-start overflow-hidden">
+    <div className="h-screen w-full bg-slate-100 flex items-center justify-center p-0 md:p-4 overflow-hidden">
       <AdminDashboard isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
-
-      <div className="flex flex-col w-full max-w-md h-screen max-h-[850px] px-4 py-3 justify-between bg-white shadow-2xl">
-        
-        {/* Header - Super Compact */}
-        <header className="text-center">
-          <h1 
-            onClick={handleTitleClick}
-            className="text-lg md:text-xl font-black text-gray-900 uppercase leading-tight tracking-tighter select-none"
-          >
-            {APP_TITLE}
-          </h1>
+      
+      <div className="w-full max-w-md h-full max-h-[800px] bg-white flex flex-col justify-between p-4 shadow-xl">
+        <header onClick={secretTrigger} className="text-center py-1">
+          <h1 className="text-xl font-black uppercase tracking-tighter leading-none">{APP_TITLE}</h1>
         </header>
 
-        {/* Hero Image - 1:1 Aspect Ratio */}
-        <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md border-2 border-slate-50 flex-shrink-0 my-1">
-          {imgStatus !== 'error' ? (
+        <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-200 border-2 border-slate-50 shadow-inner flex items-center justify-center">
+          {!imgError ? (
             <img 
               src={TEACHER_IMAGE_PATH} 
               alt="Teacher" 
-              className={`w-full h-full object-cover transition-opacity duration-300 ${imgStatus === 'loaded' ? 'opacity-100' : 'opacity-0'}`}
-              onError={() => setImgStatus('error')}
-              onLoad={() => setImgStatus('loaded')}
+              className="w-full h-full object-cover"
+              onError={() => setImgError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-orange-500 text-white">
-               <i className="fa-solid fa-user-tie text-4xl opacity-50"></i>
+            <div className="flex flex-col items-center text-slate-400">
+              <i className="fa-solid fa-user-graduate text-6xl mb-2"></i>
+              <span className="text-[10px] font-bold">RASM YUKLANMADI</span>
             </div>
           )}
-          
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-          
-          <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center space-x-1 shadow-sm">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-red-600 animate-pulse"></span>
-            <span className="text-[9px] font-black text-gray-800 uppercase tracking-tighter">Live Masterclass</span>
+          <div className="absolute bottom-2 left-2 bg-white/90 px-2 py-1 rounded text-[10px] font-black uppercase shadow-sm">
+            <span className="inline-block w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse mr-1"></span> Live
           </div>
         </div>
 
-        {/* Benefits - Vertical List */}
-        <section className="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-1.5">
-          {BENEFITS.map((benefit) => (
-            <BenefitItem 
-              key={benefit.id} 
-              text={benefit.text} 
-              icon={benefit.icon} 
-            />
-          ))}
+        <section className="space-y-2 bg-slate-50 p-3 rounded-xl">
+          {BENEFITS.map(b => <BenefitItem key={b.id} text={b.text} icon={b.icon} />)}
         </section>
 
-        {/* CTA & Trust - Tightened spacing */}
-        <div className="space-y-2">
-          <CTAButton className="!py-3.5 !text-base shadow-orange-500/40" />
-          
-          <div className="flex flex-col items-center">
-             <div className="flex items-center space-x-1.5 mb-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                <p className="text-slate-500 text-[9px] font-bold uppercase tracking-tight">
-                  +2,481 kishi bugun ro'yxatdan o'tdi
-                </p>
-             </div>
-             <p className="text-[7px] text-slate-300 uppercase font-bold">
-               &copy; {new Date().getFullYear()} CEFR Expert PRO • SQL Backed
-             </p>
+        <footer className="space-y-3 pb-2">
+          <CTAButton className="!py-4 shadow-xl" />
+          <div className="text-center">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">+2,481 KISHI QO'SHILDI</p>
+            <p className="text-[8px] text-slate-300 font-bold uppercase mt-1">© {new Date().getFullYear()} CEFR EXPERT PRO</p>
           </div>
-        </div>
+        </footer>
       </div>
     </div>
   );

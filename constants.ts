@@ -5,7 +5,8 @@ export const APP_TITLE = "CEFR-ni 30 kunda topshirish sirlari";
 // Netlify funksiyasi uchun endpoint
 export const API_BASE_URL = "/api";
 
-export const TEACHER_IMAGE_PATH = "/teacher.jpg";
+// ImgBB direct image link
+export const TEACHER_IMAGE_PATH = "https://i.ibb.co/nqyXsYxc/teacher.webp";
 
 export const BENEFITS = [
   {
