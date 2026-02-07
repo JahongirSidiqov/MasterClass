@@ -19,27 +19,65 @@ export const AdminDashboard: React.FC<{ isOpen: boolean; onClose: () => void }> 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-sm rounded-2xl p-6 shadow-2xl relative">
-        <h3 className="text-xl font-black mb-4 flex items-center">
-          <i className="fa-solid fa-chart-line text-orange-500 mr-2"></i> STATISTIKA
-        </h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+      <div className="bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-300">
+        <div className="bg-orange-500 p-6 text-white">
+          <h3 className="text-xl font-black flex items-center justify-between">
+            <span><i className="fa-solid fa-database mr-2"></i> LIVE DATA</span>
+            <button onClick={onClose} className="hover:rotate-90 transition-transform">
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </h3>
+        </div>
 
-        {loading ? <p className="text-center py-4 font-bold animate-pulse">Yuklanmoqda...</p> : (
-          <div className="space-y-3">
-            <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
-              <p className="text-[10px] font-bold text-orange-600 uppercase">Jami kliklar</p>
-              <p className="text-3xl font-black text-orange-700">{stats?.total_clicks || 0}</p>
+        <div className="p-6">
+          {loading ? (
+            <div className="flex flex-col items-center py-10">
+              <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="font-bold text-slate-400 uppercase text-xs tracking-widest">Bazadan ma'lumot olinmoqda...</p>
             </div>
-            <p className="text-[10px] text-gray-400 font-bold uppercase">
-              Oxirgi faollik: {stats?.last_click ? new Date(stats.last_click).toLocaleTimeString() : '---'}
-            </p>
-          </div>
-        )}
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-end justify-between border-b pb-4">
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase">Jami kliklar</p>
+                  <p className="text-4xl font-black text-slate-900 leading-none">{stats?.total_clicks || 0}</p>
+                </div>
+                <div className="text-right">
+                  <span className="inline-block px-2 py-1 bg-green-100 text-green-700 text-[10px] font-black rounded uppercase">Active Now</span>
+                </div>
+              </div>
 
-        <div className="mt-6 flex gap-2">
-          <div className="flex-1 text-[8px] font-bold text-gray-400 uppercase bg-gray-50 p-2 rounded">Stack: Python / Neon SQL</div>
-          <button onClick={onClose} className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg uppercase">Yopish</button>
+              <div>
+                <p className="text-[10px] font-bold text-slate-400 uppercase mb-3 tracking-widest">Oxirgi 10 ta faollik vaqti:</p>
+                <div className="max-h-[200px] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+                  {stats?.last_clicks?.length > 0 ? stats.last_clicks.map((time: string, i: number) => (
+                    <div key={i} className="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-100">
+                      <div className="flex items-center">
+                        <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase">Foydalanuvchi #{stats.total_clicks - i}</span>
+                      </div>
+                      <span className="text-[9px] font-mono text-slate-400">
+                        {new Date(time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                      </span>
+                    </div>
+                  )) : (
+                    <p className="text-center text-[10px] text-slate-300 py-4 uppercase font-bold tracking-tighter">Ma'lumotlar mavjud emas</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 bg-slate-50 border-t flex items-center justify-between">
+          <p className="text-[8px] font-black text-slate-300 uppercase">Neon SQL / Netlify Serverless</p>
+          <button 
+            onClick={onClose} 
+            className="text-[10px] font-black bg-slate-900 text-white px-4 py-2 rounded-xl active:scale-95 transition-transform"
+          >
+            YOPISH
+          </button>
         </div>
       </div>
     </div>

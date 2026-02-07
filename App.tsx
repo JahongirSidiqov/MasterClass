@@ -12,7 +12,11 @@ const App: React.FC = () => {
 
   const secretTrigger = () => {
     setClicks(c => c + 1);
-    if (clicks > 2) { setIsAdminOpen(true); setClicks(0); }
+    if (clicks + 1 > 2) { 
+      setIsAdminOpen(true); 
+      setClicks(0); 
+    }
+    // Agar 1 soniya ichida 3 marta bosilmasa, hisoblagichni nolga tushiradi
     setTimeout(() => setClicks(0), 1000);
   };
 
@@ -21,16 +25,19 @@ const App: React.FC = () => {
       <AdminDashboard isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
       
       <div className="w-full max-w-md h-full max-h-[800px] bg-white flex flex-col justify-between p-4 shadow-xl">
-        <header onClick={secretTrigger} className="text-center py-1">
+        <header className="text-center py-1">
           <h1 className="text-xl font-black uppercase tracking-tighter leading-none">{APP_TITLE}</h1>
         </header>
 
-        <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-200 border-2 border-slate-50 shadow-inner flex items-center justify-center">
+        <div 
+          onClick={secretTrigger}
+          className="relative aspect-square rounded-xl overflow-hidden bg-slate-200 border-2 border-slate-50 shadow-inner flex items-center justify-center cursor-pointer active:scale-[0.98] transition-transform"
+        >
           {!imgError ? (
             <img 
               src={TEACHER_IMAGE_PATH} 
               alt="Teacher" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover select-none"
               onError={() => setImgError(true)}
             />
           ) : (
